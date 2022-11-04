@@ -33,7 +33,7 @@ function PostBox() {
 
   const onSubmit = handleSubmit(async (formData) => {
     console.log(formData);
-    const notification = toast.loading('Creating new post...');
+    const notification = toast.loading("Creating new post...");
 
     try {
       //Query for subreddit topic..
@@ -49,8 +49,7 @@ function PostBox() {
       const subRedditExists = getSubredditByTopic.length > 0;
       console.log(subRedditExists);
       console.log(getSubredditByTopic.length);
-      
-      
+
       if (!subRedditExists) {
         //create sub
         console.log("creating new sub ->");
@@ -83,10 +82,8 @@ function PostBox() {
       } else {
         // use existing
 
-        console.log('Using existing data');
+        console.log("Using existing data");
         console.log(getSubredditByTopic);
-        
-        
 
         const image = formData.postImage || "";
 
@@ -119,7 +116,6 @@ function PostBox() {
         id: notification,
       });
       console.log(error);
-      
     }
   });
 

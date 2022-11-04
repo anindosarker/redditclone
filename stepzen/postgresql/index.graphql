@@ -13,7 +13,11 @@ type Comment {
 
 type Post {
   body: String
-  commentList: [Comment] @materializer(query: "getCommentUsingPost_id")
+  commentList: [Comment]
+    @materializer(
+      query: "getCommentUsingPost_id"
+      arguments: [{ name: "id", field: "id" }]
+    )
   created_at: DateTime
   id: ID!
   image: String
@@ -25,7 +29,11 @@ type Post {
   subreddit_id: ID
   title: String
   username: String
-  voteList: [Vote] @materializer(query: "getVoteUsingPost_id")
+  voteList: [Vote]
+    @materializer(
+      query: "getVoteUsingPost_id"
+      arguments: [{ name: "id", field: "id" }]
+    )
 }
 
 type Subreddit {
