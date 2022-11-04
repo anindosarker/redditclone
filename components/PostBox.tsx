@@ -36,9 +36,9 @@ function PostBox() {
     const notification = toast.loading('Creating new post...');
 
     try {
-      //Query
+      //Query for subreddit topic..
       const {
-        data: { getSubredditListByTopic },
+        data: { getSubredditByTopic },
       } = await client.query({
         query: GET_SUBREDDIT_BY_TOPIC,
         variables: {
@@ -46,11 +46,14 @@ function PostBox() {
         },
       });
 
-      const subRedditExists = getSubredditListByTopic.length > 0;
-
+      const subRedditExists = getSubredditByTopic.length > 0;
+      console.log(subRedditExists);
+      console.log(getSubredditByTopic.length);
+      
+      
       if (!subRedditExists) {
         //create sub
-        console.log("creating sub ->");
+        console.log("creating new sub ->");
 
         const {
           data: { insertSubreddit: newSubreddit },
@@ -80,6 +83,11 @@ function PostBox() {
       } else {
         // use existing
 
+        console.log('Using existing data');
+        console.log(getSubredditByTopic);
+        
+        
+
         const image = formData.postImage || "";
 
         const {
@@ -88,13 +96,13 @@ function PostBox() {
           variables: {
             body: formData.postBody,
             image: image,
-            subreddit_id: getSubredditListByTopic[0].id,
+            subreddit_id: getSubredditByTopic[0].id,
             title: formData.postTitle,
             username: session?.user?.name,
           },
         });
 
-        console.log("New post added else", newPost);
+        console.log("New post added with old subreddit", newPost);
       }
 
       //after adding the post
@@ -110,6 +118,8 @@ function PostBox() {
       toast.error("Whoops! Something went wrong!", {
         id: notification,
       });
+      console.log(error);
+      
     }
   });
 
@@ -158,7 +168,7 @@ function PostBox() {
             <p className=" min-w-[90px]">Subreddit:</p>
             <input
               type="text"
-              {...(register("subreddit"), { required: true })}
+              {...register("subreddit", { required: true })}
               className="flex-1 m-2 bg-blue-50 p-2 outline-none"
               placeholder="i.e. React"
             />
