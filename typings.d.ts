@@ -30,5 +30,5 @@ type Post = {
   username: string
   voteList: Vote[]
   commentList: Comments[]
-  subreddit: Subreddit[]
+  subreddit: Subreddit
 }
