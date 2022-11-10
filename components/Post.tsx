@@ -12,12 +12,22 @@ import Avatar from "./Avatar";
 import TimeAgo from "react-timeago";
 import Link from "next/link";
 import { Jelly, NewtonsCradle } from "@uiball/loaders";
+import { useSession } from "next-auth/react";
 
 type Props = {
   post: Post;
 };
 
 function Post({ post }: Props) {
+
+  const {data: session} = useSession();
+
+  const upVote = async (isUpvote: boolean) => {
+    
+  }
+
+
+
   if (!post) {
     return (
       <div className="flex w-full items-center justify-center p-10 text-xl">
